@@ -7,9 +7,9 @@ namespace Jogo_Xadrez
     {
         static void Main(string[] args)
         {
-            Position position = new Position(3, 4);
+            // Testando compilação da Classe Board 
+            Board board = new Board(8, 8);
 
-            Console.WriteLine(position);
         }
 
 
