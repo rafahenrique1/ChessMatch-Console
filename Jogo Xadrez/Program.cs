@@ -10,6 +10,7 @@ namespace Jogo_Xadrez
             // Testando compilação da Classe Board 
             Board board = new Board(8, 8);
 
+            Screen.PrintBoard(board);
         }
 
 

@@ -13,6 +13,11 @@
             _chessPieces = new ChessPiece[Lines, Columns];
         }
 
+        public ChessPiece chessPiece(int line, int column)
+        {
+            return _chessPieces[line, column];
+        }
+
 
     }
 }
