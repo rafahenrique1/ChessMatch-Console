@@ -18,6 +18,11 @@
             return _chessPieces[line, column];
         }
 
+        public void PuttingPiece(ChessPiece piece, Position position)
+        {
+            _chessPieces[position.Line, position.Column] = piece;
+            piece.Position = position;
+        }
 
     }
 }
