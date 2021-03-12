@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameBoard;
+using System;
 
 namespace Jogo_Xadrez
 {
@@ -6,7 +7,11 @@ namespace Jogo_Xadrez
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Position position = new Position(3, 4);
+
+            Console.WriteLine(position);
         }
+
+
     }
 }
