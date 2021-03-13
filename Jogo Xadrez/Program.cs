@@ -8,12 +8,24 @@ namespace Jogo_Xadrez
     {
         static void Main(string[] args)
         {
-            // Testando a Classe ToPosition
-            ChessPosition chessPosition = new ChessPosition('a', 1);
+            try
+            {
+                // Testando compilação da Classe Board 
+                Board board = new Board(8, 8);
 
-            Console.WriteLine(chessPosition);
+                // Colocando algumas peças no Tabuleiro para teste
+                board.PuttingPiece(new Tower(board, Color.Black), new Position(0, 0));
+                board.PuttingPiece(new Tower(board, Color.Black), new Position(1, 3));
+                board.PuttingPiece(new King(board, Color.Black), new Position(0, 2));
 
-            Console.WriteLine(chessPosition.ToPosition());
+                board.PuttingPiece(new Tower(board, Color.White), new Position(3, 5));
+
+                Screen.PrintBoard(board);
+            }
+            catch (GameBoardException e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }
