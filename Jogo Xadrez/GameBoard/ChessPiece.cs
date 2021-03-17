@@ -1,6 +1,6 @@
 ﻿namespace GameBoard
 {
-    public class ChessPiece
+    public abstract class ChessPiece
     {
         public Position Position { get; set; }
         public Color Color { get; protected set; }
@@ -20,6 +20,6 @@
             NumberOfMovements++;
         }
 
-
+        public abstract bool[,] PossibleMovements();
     }
 }
