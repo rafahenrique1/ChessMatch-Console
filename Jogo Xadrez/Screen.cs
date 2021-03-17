@@ -1,4 +1,5 @@
 ﻿using System;
+using Chess;
 using GameBoard;
 
 namespace Jogo_Xadrez
@@ -25,6 +26,14 @@ namespace Jogo_Xadrez
                 Console.WriteLine();
             }
             Console.WriteLine("  a b c d e f g h ");
+        }
+
+        public static ChessPosition ReadChessPosition()
+        {
+            string readPosition = Console.ReadLine();
+            char column = readPosition[0];
+            int line = int.Parse(readPosition[1] + "");
+            return new ChessPosition(column, line);
         }
 
         public static void PrinterPiece(ChessPiece chessPiece)

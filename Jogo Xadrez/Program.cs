@@ -10,17 +10,23 @@ namespace Jogo_Xadrez
         {
             try
             {
-                // Testando compilação da Classe Board 
-                Board board = new Board(8, 8);
+                ChessMatch chessMatch = new ChessMatch();
 
-                // Colocando algumas peças no Tabuleiro para teste
-                board.PuttingPiece(new Tower(board, Color.Black), new Position(0, 0));
-                board.PuttingPiece(new Tower(board, Color.Black), new Position(1, 3));
-                board.PuttingPiece(new King(board, Color.Black), new Position(0, 2));
+                while (!chessMatch.Finished)
+                {
+                    Console.Clear();
+                    Screen.PrintBoard(chessMatch.Board);
 
-                board.PuttingPiece(new Tower(board, Color.White), new Position(3, 5));
+                    Console.WriteLine();
+                    Console.Write("Origin: ");
+                    Position origin = Screen.ReadChessPosition().ToPosition();
+                    Console.Write("Destiny: ");
+                    Position destiny = Screen.ReadChessPosition().ToPosition();
 
-                Screen.PrintBoard(board);
+                    chessMatch.PerformMovement(origin, destiny);
+                }
+
+                
             }
             catch (GameBoardException e)
             {

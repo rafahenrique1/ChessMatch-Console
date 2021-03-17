@@ -40,6 +40,19 @@
             piece.Position = position;
         }
 
+        public ChessPiece RemovePiece(Position position)
+        {
+            if(chessPiece(position) == null)
+            {
+                return null;
+            }
+
+            ChessPiece aux = chessPiece(position);
+            aux.Position = null;
+            _chessPiece[position.Line, position.Column] = null;
+            return aux;
+        }
+
         public bool ValidPosition(Position position)
         {
             if (position.Line < 0 || position.Line >= Lines || position.Column < 0 || position.Column >= Columns)
