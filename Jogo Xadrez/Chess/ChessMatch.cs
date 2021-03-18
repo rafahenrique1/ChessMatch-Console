@@ -7,17 +7,18 @@ namespace Chess
     public class ChessMatch
     {
         public Board Board { get; private set; }
-        public int Shift { get; set; }
-        private Color _currentPlayer { get; set; }
+        public int Shift { get; private set; }
+        public Color CurrentPlayer { get; private set; }
         public bool Finished { get; set; }
 
         public ChessMatch()
         {
             Board = new Board(8, 8);
             Shift = 1;
-            _currentPlayer = Color.White;
-            PutPieces();
+            CurrentPlayer = Color.White;
             Finished = false;
+            PutPieces();
+
         }
 
         public void PerformMovement(Position origin, Position destination)
@@ -26,6 +27,49 @@ namespace Chess
             chessPiece.IncreaseAmountMovements();
             ChessPiece capturedPiece = Board.RemovePiece(destination);
             Board.PuttingPiece(chessPiece, destination);
+        }
+
+        public void MakeAMove(Position origin, Position destination)
+        {
+            PerformMovement(origin, destination);
+            Shift++;
+            ChangePlayer();
+        }
+
+        private void ChangePlayer()
+        {
+            if (CurrentPlayer == Color.White)
+            {
+                CurrentPlayer = Color.Black;
+            }
+            else
+            {
+                CurrentPlayer = Color.White;
+            }
+        }
+
+        public void ValidateOriginPosition(Position position)
+        {
+            if (Board.chessPiece(position) == null)
+            {
+                throw new GameBoardException("There's no piece in the chosen origin position!");
+            }
+            if (CurrentPlayer != Board.chessPiece(position).Color)
+            {
+                throw new GameBoardException("The piece of origin chosen is not yours!");
+            }
+            if (!Board.chessPiece(position).ThereIsPossibleMovements())
+            {
+                throw new GameBoardException("There aren't possible movements for the chosen piece of origin");
+            }
+        }
+
+        public void ValidateDestinationPosition(Position origin, Position destination)
+        {
+            if (!Board.chessPiece(origin).CanMoveTo(destination))
+            {
+                throw new GameBoardException("Invalid target position!");
+            }
         }
 
         private void PutPieces()
