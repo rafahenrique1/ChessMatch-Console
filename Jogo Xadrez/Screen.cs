@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Chess;
 using GameBoard;
 
@@ -6,6 +7,39 @@ namespace Jogo_Xadrez
 {
     public class Screen
     {
+        public static void PrintMatch(ChessMatch chessMatch)
+        {
+            PrintBoard(chessMatch.Board);
+            Console.WriteLine();
+            PrintCapturedPieces(chessMatch);
+            Console.WriteLine();
+            Console.WriteLine("Shift: " + chessMatch.Shift);
+            Console.WriteLine("Wait for movement: " + chessMatch.CurrentPlayer);
+        }
+
+        public static void PrintCapturedPieces(ChessMatch chessMatch)
+        {
+            Console.WriteLine("Captured pieces:");
+            Console.Write("White: ");
+            PrintSet(chessMatch.CapturedPieces(Color.White));
+            Console.WriteLine();
+            Console.Write("Black: ");
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            PrintSet(chessMatch.CapturedPieces(Color.Black));
+            Console.ForegroundColor = aux;
+            Console.WriteLine();
+        }
+
+        public static void PrintSet(HashSet<ChessPiece> chessPieces)
+        {
+            Console.Write("[");
+            foreach(ChessPiece piece in chessPieces)
+            {
+                Console.Write(piece + " ");
+            }
+            Console.Write("]");
+        }
         public static void PrintBoard(Board board)
         {
             for (int i = 0; i < board.Lines; i++)

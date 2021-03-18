@@ -17,10 +17,7 @@ namespace Jogo_Xadrez
                     try
                     {
                         Console.Clear();
-                        Screen.PrintBoard(chessMatch.Board);
-                        Console.WriteLine();
-                        Console.WriteLine("Shift: " + chessMatch.Shift);
-                        Console.WriteLine("Wait for movement: " + chessMatch.CurrentPlayer);
+                        Screen.PrintMatch(chessMatch);
 
                         Console.WriteLine();
                         Console.Write("Origin: ");
