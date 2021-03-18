@@ -15,6 +15,10 @@ namespace Jogo_Xadrez
             Console.WriteLine();
             Console.WriteLine("Shift: " + chessMatch.Shift);
             Console.WriteLine("Wait for movement: " + chessMatch.CurrentPlayer);
+            if (chessMatch.Check)
+            {
+                Console.WriteLine("CHECK!");
+            }
         }
 
         public static void PrintCapturedPieces(ChessMatch chessMatch)
