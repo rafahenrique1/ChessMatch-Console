@@ -1,6 +1,5 @@
 ﻿using System;
 using GameBoard;
-using System.Text;
 using System.Collections.Generic;
 
 namespace Chess
@@ -73,8 +72,39 @@ namespace Chess
                 Check = false;
             }
 
-            Shift++;
-            ChangePlayer();
+            if (CheckMateTest(Opponent(CurrentPlayer)))
+            {
+                Finished = true;
+            }
+            else
+            {
+                Shift++;
+                ChangePlayer();
+            }
+        }
+
+        public void ValidateOriginPosition(Position position)
+        {
+            if (Board.chessPiece(position) == null)
+            {
+                throw new GameBoardException("There's no piece in the chosen origin position!");
+            }
+            if (CurrentPlayer != Board.chessPiece(position).Color)
+            {
+                throw new GameBoardException("The piece of origin chosen is not yours!");
+            }
+            if (!Board.chessPiece(position).ThereIsPossibleMovements())
+            {
+                throw new GameBoardException("There aren't possible movements for the chosen piece of origin");
+            }
+        }
+
+        public void ValidateDestinationPosition(Position origin, Position destination)
+        {
+            if (!Board.chessPiece(origin).CanMoveTo(destination))
+            {
+                throw new GameBoardException("Invalid target position!");
+            }
         }
 
         private void ChangePlayer()
@@ -87,6 +117,21 @@ namespace Chess
             {
                 CurrentPlayer = Color.White;
             }
+        }
+
+        public HashSet<ChessPiece> PiecesInPlay(Color color)
+        {
+            HashSet<ChessPiece> aux = new HashSet<ChessPiece>();
+            foreach (ChessPiece piece in _pieces)
+            {
+                if (piece.Color == color)
+                {
+                    aux.Add(piece);
+                }
+            }
+
+            aux.ExceptWith(CapturedPieces(color));
+            return aux;
         }
 
         public HashSet<ChessPiece> CapturedPieces(Color color)
@@ -103,19 +148,16 @@ namespace Chess
             return aux;
         }
 
-        public HashSet<ChessPiece> PiecesInPlay(Color color)
+        private Color Opponent(Color color)
         {
-            HashSet<ChessPiece> aux = new HashSet<ChessPiece>();
-            foreach (ChessPiece piece in _pieces)
+            if (color == Color.White)
             {
-                if (piece.Color == color)
-                {
-                    aux.Add(piece);
-                }
+                return Color.Black;
             }
-
-            aux.ExceptWith(CapturedPieces(color));
-            return aux;
+            else
+            {
+                return Color.White;
+            }
         }
 
         private ChessPiece King(Color color)
@@ -151,41 +193,37 @@ namespace Chess
             return false;
         }
 
-        private Color Opponent(Color color)
+        public bool CheckMateTest(Color color)
         {
-            if (color == Color.White)
+            if (!IsInCheck(color))
             {
-                return Color.Black;
+                return false;
             }
-            else
-            {
-                return Color.White;
-            }
-        }
 
+            foreach (ChessPiece piece in PiecesInPlay(color))
+            {
+                bool[,] mat = piece.PossibleMovements();
+                for (int i = 0; i < Board.Lines; i++)
+                {
+                    for (int j = 0; j < Board.Columns; j++)
+                    {
+                        if (mat[i, j])
+                        {
+                            Position origin = piece.Position;
+                            Position destination = new Position(i, j);
+                            ChessPiece capturedPiece = PerformMovement(origin, destination);
+                            bool checkTest = IsInCheck(color);
+                            UndoMovement(origin, destination, capturedPiece);
+                            if (!checkTest)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
 
-        public void ValidateOriginPosition(Position position)
-        {
-            if (Board.chessPiece(position) == null)
-            {
-                throw new GameBoardException("There's no piece in the chosen origin position!");
-            }
-            if (CurrentPlayer != Board.chessPiece(position).Color)
-            {
-                throw new GameBoardException("The piece of origin chosen is not yours!");
-            }
-            if (!Board.chessPiece(position).ThereIsPossibleMovements())
-            {
-                throw new GameBoardException("There aren't possible movements for the chosen piece of origin");
-            }
-        }
-
-        public void ValidateDestinationPosition(Position origin, Position destination)
-        {
-            if (!Board.chessPiece(origin).CanMoveTo(destination))
-            {
-                throw new GameBoardException("Invalid target position!");
-            }
+            return true;
         }
 
         public void PutNewPiece(char column, int line, ChessPiece piece)
@@ -197,20 +235,11 @@ namespace Chess
         private void PutPieces()
         {
             PutNewPiece('c', 1, new Tower(Board, Color.White));
-            PutNewPiece('c', 2, new Tower(Board, Color.White));
-            PutNewPiece('d', 2, new Tower(Board, Color.White));
-            PutNewPiece('e', 2, new Tower(Board, Color.White));
-            PutNewPiece('e', 1, new Tower(Board, Color.White));
+            PutNewPiece('h', 7, new Tower(Board, Color.White));
             PutNewPiece('d', 1, new King(Board, Color.White));
 
-            PutNewPiece('c', 7, new Tower(Board, Color.Black));
-            PutNewPiece('c', 8, new Tower(Board, Color.Black));
-            PutNewPiece('d', 7, new Tower(Board, Color.Black));
-            PutNewPiece('e', 7, new Tower(Board, Color.Black));
-            PutNewPiece('e', 8, new Tower(Board, Color.Black));
-            PutNewPiece('d', 8, new King(Board, Color.Black));
+            PutNewPiece('b', 8, new Tower(Board, Color.Black));
+            PutNewPiece('a', 8, new King(Board, Color.Black));
         }
-
-
     }
 }

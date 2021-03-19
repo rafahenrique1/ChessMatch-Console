@@ -14,10 +14,19 @@ namespace Jogo_Xadrez
             PrintCapturedPieces(chessMatch);
             Console.WriteLine();
             Console.WriteLine("Shift: " + chessMatch.Shift);
-            Console.WriteLine("Wait for movement: " + chessMatch.CurrentPlayer);
-            if (chessMatch.Check)
+           
+            if (!chessMatch.Finished)
             {
-                Console.WriteLine("CHECK!");
+                Console.WriteLine("Wait for movement: " + chessMatch.CurrentPlayer);
+                if (chessMatch.Check)
+                {
+                    Console.WriteLine("CHECK!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("CHECKMATE!");
+                Console.WriteLine("Winner: " + chessMatch.CurrentPlayer);
             }
         }
 
@@ -49,6 +58,7 @@ namespace Jogo_Xadrez
             for (int i = 0; i < board.Lines; i++)
             {
                 Console.Write(8 - i + " ");
+
                 for (int j = 0; j < board.Columns; j++)
                 {
                     PrinterPiece(board.chessPiece(i, j));
@@ -60,8 +70,8 @@ namespace Jogo_Xadrez
 
         public static void PrintBoard(Board board, bool[,] possiblePositions)
         {
-            ConsoleColor originalBackgroud = Console.BackgroundColor;
-            ConsoleColor changedBackgroud = ConsoleColor.DarkBlue;
+            ConsoleColor originalBackground = Console.BackgroundColor;
+            ConsoleColor changedBackground = ConsoleColor.DarkBlue;
 
             for (int i = 0; i < board.Lines; i++)
             {
@@ -70,21 +80,21 @@ namespace Jogo_Xadrez
                 {
                     if (possiblePositions[i, j])
                     {
-                        Console.BackgroundColor = changedBackgroud;
+                        Console.BackgroundColor = changedBackground;
                     }
                     else
                     {
-                        Console.BackgroundColor = originalBackgroud;
+                        Console.BackgroundColor = originalBackground;
                     }
 
                     PrinterPiece(board.chessPiece(i, j));
                 }
 
-                Console.BackgroundColor = originalBackgroud;
+                Console.BackgroundColor = originalBackground;
                 Console.WriteLine();
             }
             Console.WriteLine("  a b c d e f g h ");
-            Console.BackgroundColor = originalBackgroud;
+            Console.BackgroundColor = originalBackground;
         }
 
         public static ChessPosition ReadChessPosition()
