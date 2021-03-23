@@ -82,6 +82,9 @@ namespace Chess
                 mat[position.Line, position.Column] = true;
             }
 
+
+            // #
+
             return mat;
         }
     }

@@ -2,9 +2,9 @@
 
 namespace Chess
 {
-    public class Horse : ChessPiece
+    public class Knight : ChessPiece
     {
-        public Horse(Board board, Color color)
+        public Knight(Board board, Color color)
             : base(board, color)
         {
         }
@@ -14,7 +14,7 @@ namespace Chess
             return "H";
         }
 
-        private bool HorseCanMove(Position position)
+        private bool KnightCanMove(Position position)
         {
             ChessPiece chessPiece = Board.chessPiece(position);
             return chessPiece == null || chessPiece.Color != Color;
@@ -27,49 +27,49 @@ namespace Chess
             Position position = new Position(0, 0);
 
             position.SetValues(Position.Line - 1, Position.Column - 2);
-            if (Board.ValidPosition(position) && HorseCanMove(position))
+            if (Board.ValidPosition(position) && KnightCanMove(position))
             {
                 mat[position.Line, position.Column] = true;
             }
 
             position.SetValues(Position.Line - 2, Position.Column - 1);
-            if (Board.ValidPosition(position) && HorseCanMove(position))
+            if (Board.ValidPosition(position) && KnightCanMove(position))
             {
                 mat[position.Line, position.Column] = true;
             }
 
             position.SetValues(Position.Line - 2, Position.Column + 1);
-            if (Board.ValidPosition(position) && HorseCanMove(position))
+            if (Board.ValidPosition(position) && KnightCanMove(position))
             {
                 mat[position.Line, position.Column] = true;
             }
 
             position.SetValues(Position.Line - 1, Position.Column + 2);
-            if (Board.ValidPosition(position) && HorseCanMove(position))
+            if (Board.ValidPosition(position) && KnightCanMove(position))
             {
                 mat[position.Line, position.Column] = true;
             }
 
             position.SetValues(Position.Line + 1, Position.Column + 2);
-            if (Board.ValidPosition(position) && HorseCanMove(position))
+            if (Board.ValidPosition(position) && KnightCanMove(position))
             {
                 mat[position.Line, position.Column] = true;
             }
 
             position.SetValues(Position.Line + 2, Position.Column + 1);
-            if (Board.ValidPosition(position) && HorseCanMove(position))
+            if (Board.ValidPosition(position) && KnightCanMove(position))
             {
                 mat[position.Line, position.Column] = true;
             }
 
             position.SetValues(Position.Line + 2, Position.Column - 1);
-            if (Board.ValidPosition(position) && HorseCanMove(position))
+            if (Board.ValidPosition(position) && KnightCanMove(position))
             {
                 mat[position.Line, position.Column] = true;
             }
 
             position.SetValues(Position.Line + 1, Position.Column - 2);
-            if (Board.ValidPosition(position) && HorseCanMove(position))
+            if (Board.ValidPosition(position) && KnightCanMove(position))
             {
                 mat[position.Line, position.Column] = true;
             }

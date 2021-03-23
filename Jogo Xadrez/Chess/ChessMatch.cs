@@ -9,7 +9,7 @@ namespace Chess
         public Board Board { get; private set; }
         public int Shift { get; private set; }
         public Color CurrentPlayer { get; private set; }
-        public bool Finished { get; set; }
+        public bool Finished { get; private set; }
         private HashSet<ChessPiece> _pieces;
         private HashSet<ChessPiece> _captured;
         public bool Check { get; private set; }
@@ -234,14 +234,14 @@ namespace Chess
 
         private void PutPieces()
         {
-            PutNewPiece('a', 1, new Tower(Board, Color.White));
-            PutNewPiece('b', 1, new Horse(Board, Color.White));
+            PutNewPiece('a', 1, new Rook(Board, Color.White));
+            PutNewPiece('b', 1, new Knight(Board, Color.White));
             PutNewPiece('c', 1, new Bishop(Board, Color.White));
             PutNewPiece('d', 1, new Queen(Board, Color.White));
             PutNewPiece('e', 1, new King(Board, Color.White));
             PutNewPiece('f', 1, new Bishop(Board, Color.White));
-            PutNewPiece('g', 1, new Horse(Board, Color.White));
-            PutNewPiece('h', 1, new Tower(Board, Color.White));
+            PutNewPiece('g', 1, new Knight(Board, Color.White));
+            PutNewPiece('h', 1, new Rook(Board, Color.White));
             PutNewPiece('a', 2, new Pawn(Board, Color.White));
             PutNewPiece('b', 2, new Pawn(Board, Color.White));
             PutNewPiece('c', 2, new Pawn(Board, Color.White));
@@ -251,14 +251,14 @@ namespace Chess
             PutNewPiece('g', 2, new Pawn(Board, Color.White));
             PutNewPiece('h', 2, new Pawn(Board, Color.White));
 
-            PutNewPiece('a', 8, new Tower(Board, Color.Black));
-            PutNewPiece('b', 8, new Horse(Board, Color.Black));
+            PutNewPiece('a', 8, new Rook(Board, Color.Black));
+            PutNewPiece('b', 8, new Knight(Board, Color.Black));
             PutNewPiece('c', 8, new Bishop(Board, Color.Black));
             PutNewPiece('d', 8, new Queen(Board, Color.Black));
             PutNewPiece('e', 8, new King(Board, Color.Black));
             PutNewPiece('f', 8, new Bishop(Board, Color.Black));
-            PutNewPiece('g', 8, new Horse(Board, Color.Black));
-            PutNewPiece('h', 8, new Tower(Board, Color.Black));
+            PutNewPiece('g', 8, new Knight(Board, Color.Black));
+            PutNewPiece('h', 8, new Rook(Board, Color.Black));
             PutNewPiece('a', 7, new Pawn(Board, Color.Black));
             PutNewPiece('b', 7, new Pawn(Board, Color.Black));
             PutNewPiece('c', 7, new Pawn(Board, Color.Black));

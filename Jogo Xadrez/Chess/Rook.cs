@@ -2,19 +2,19 @@
 
 namespace Chess
 {
-    public class Tower : ChessPiece
+    public class Rook : ChessPiece
     {
-        public Tower(Board board, Color color)
+        public Rook(Board board, Color color)
             : base(board, color)
         {
         }
 
         public override string ToString()
         {
-            return "T";
+            return "R";
         }
 
-        private bool TowerCanMove(Position position)
+        private bool RookCanMove(Position position)
         {
             ChessPiece chessPiece = Board.chessPiece(position);
             return chessPiece == null || chessPiece.Color != Color;
@@ -28,7 +28,7 @@ namespace Chess
 
             // Up
             position.SetValues(Position.Line - 1, Position.Column);
-            while (Board.ValidPosition(position) && TowerCanMove(position))
+            while (Board.ValidPosition(position) && RookCanMove(position))
             {
                 mat[position.Line, position.Column] = true;
                 if (Board.chessPiece(position) != null && Board.chessPiece(position).Color != Color)
@@ -41,7 +41,7 @@ namespace Chess
 
             // Down
             position.SetValues(Position.Line + 1, Position.Column);
-            while (Board.ValidPosition(position) && TowerCanMove(position))
+            while (Board.ValidPosition(position) && RookCanMove(position))
             {
                 mat[position.Line, position.Column] = true;
                 if (Board.chessPiece(position) != null && Board.chessPiece(position).Color != Color)
@@ -54,7 +54,7 @@ namespace Chess
 
             // Right
             position.SetValues(Position.Line, Position.Column + 1);
-            while (Board.ValidPosition(position) && TowerCanMove(position))
+            while (Board.ValidPosition(position) && RookCanMove(position))
             {
                 mat[position.Line, position.Column] = true;
                 if (Board.chessPiece(position) != null && Board.chessPiece(position).Color != Color)
@@ -67,7 +67,7 @@ namespace Chess
 
             // Left
             position.SetValues(Position.Line, Position.Column - 1);
-            while (Board.ValidPosition(position) && TowerCanMove(position))
+            while (Board.ValidPosition(position) && RookCanMove(position))
             {
                 mat[position.Line, position.Column] = true;
                 if (Board.chessPiece(position) != null && Board.chessPiece(position).Color != Color)

@@ -74,6 +74,8 @@ namespace Chess
                 {
                     break;
                 }
+
+                position.Column = position.Column - 1;
             }
 
             // North West
@@ -86,20 +88,7 @@ namespace Chess
                     break;
                 }
 
-                position.SetValues(position.Line - 1, position.Line + 1);
-            }
-
-            // North West
-            position.SetValues(Position.Line - 1, Position.Column - 1);
-            while (Board.ValidPosition(position) && QueenCanMove(position))
-            {
-                mat[position.Line, position.Column] = true;
-                if (Board.chessPiece(position) != null && Board.chessPiece(position).Color != Color)
-                {
-                    break;
-                }
-
-                position.SetValues(position.Line - 1, position.Line - 1);
+                position.SetValues(position.Line - 1, position.Column - 1);
             }
 
             // North East
@@ -112,7 +101,7 @@ namespace Chess
                     break;
                 }
 
-                position.SetValues(position.Line - 1, position.Line + 1);
+                position.SetValues(position.Line - 1, position.Column + 1);
             }
 
             // South East
@@ -125,7 +114,7 @@ namespace Chess
                     break;
                 }
 
-                position.SetValues(position.Line + 1, position.Line + 1);
+                position.SetValues(position.Line + 1, position.Column + 1);
             }
 
             // South West
@@ -138,7 +127,7 @@ namespace Chess
                     break;
                 }
 
-                position.SetValues(position.Line + 1, position.Line - 1);
+                position.SetValues(position.Line + 1, position.Column - 1);
             }
 
             return mat;
